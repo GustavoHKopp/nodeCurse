@@ -3,7 +3,7 @@ const app = express()
 const port = 3081
 
 app.get('/', (req, res) => {
-  res.send('bom dia meu querido!<br><a href="http://localhost:3081/blog"><button>ir para o blog</button></a><br><a href="http://localhost:3081/sociais"><button>ir para as redes sociais</button></a>')
+  res.send('<h1>bom dia meu querido!</h1><a href="http://localhost:3081/blog"><button>ir para o blog</button></a><br><a href="http://localhost:3081/sociais"><button>ir para as redes sociais</button></a>')
 })
 
 app.get('/blog', (req, res) =>{
