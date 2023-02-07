@@ -1,0 +1,16 @@
+{
+  "name": "questions-and-answers",
+  "version": "1.0.0",
+  "description": "Uma plataforma de perguntas e respostas, estilo Yahoo respostas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gustavo Kopp",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  }
+}
