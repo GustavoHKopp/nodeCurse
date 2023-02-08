@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perguntas e Respostas</title>
+ <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <h1>Perguntas e respostas</h1>
@@ -18,12 +19,15 @@
   <% if(msg == true){ %>
     <h3>isso é uma msg de erro!</h3>
   <%} else {%>
-    <h3>Não temos nenhum erro</h3>
+    <p>se aparecer o Sub-Zero não temos nenhum erro.</p>
+    <img src="/subzero.jpg" class="imgSubZero">
   <%}%>
 
+  <hr>
+<h1>Lista de produtos</h1>
   <% produtos.forEach(function(produto) {%>
-      <%=produto.nome%> 
-      <%=produto.preco%> <br>
+      <h3><%=produto.nome%></h3>
+      <h5><%=produto.preco%></h5> <hr>
   <%})%>
 </body>
 </html>

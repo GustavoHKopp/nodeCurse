@@ -4,6 +4,7 @@ const port = 8080
 
 //usar EJS como engine
 app.set('view engine', 'ejs')
+app.use(express.static('public'))
 
 //renderiza o que esta dentro da pasta views
 app.get('/:nome/:lang', (req, res) => {
@@ -13,7 +14,9 @@ app.get('/:nome/:lang', (req, res) => {
   var produtos = [
     {nome: 'Doritos', preco: 7.15},
     {nome: 'Coca-Cola', preco: 5.29},
-    {nome: 'Leite Tirol', preco: 3.12}
+    {nome: 'Leite Tirol', preco: 3.12},
+    {nome: '1kg de Picanha', preco: 1280.50},
+    {nome: 'Ovo', preco: 2.90}
 ]
   res.render("index", {
     name: name,
