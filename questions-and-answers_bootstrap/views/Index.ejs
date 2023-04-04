@@ -1,13 +1,30 @@
 <%- include ('partials/header.ejs')%>
+
 <body>
   <%- include ('partials/navbar.ejs')%>
-  <div id="container">
-    <h3 id="label-perguntar">Clique aqui para perguntar</h3>
+  <div class="container">
+    <h1 style="color:white">Perguntas</h1>
     <a href="/perguntar">
-      <button type="button" class="btn btn-secondary">
-       Perguntar
+      <button type="button" class="btn btn-success">
+       Incluir
       </button>
     </a>
+    <hr>
+      <!-- CARD -->
+      <% perguntas.forEach(pergunta => { %>
+        <div class="card text-bg-secondary mb-3">
+          <div class="card-body">
+            <h4><%= pergunta.titulo %></h4>
+          </div>
+          <div class="card-footer">
+            <a href="/pergunta/<%= pergunta.id %>"><button class="btn btn-primary">
+              Responder
+            </button></a>
+          </div>
+        </div>
+      <% }) %>
+      <!-- CARD -->
+    </div>
   </div>
 </body>
 <%- include ('partials/footer.ejs')%>

@@ -3,7 +3,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 8080
 const connection = require('./database/database')
-const perguntaModel = require('./database/Pergunta')
+const Pergunta = require('./database/Pergunta')
+const Resposta = require('./database/Resposta')
 
 //database
 connection
@@ -19,19 +20,69 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 //Rotas
 app.get('/', (req, res) => {
-  res.render("index")
+  Pergunta.findAll({raw: true, 
+    order: [
+      ['id','desc'] //ordena a busca para trazer os ID de forma "Desc"
+    ]
+  }).then(perguntas => {
+    res.render('index',{
+      perguntas: perguntas
+    })
+  })
+  
 })
 
 app.get('/perguntar',(req,res) =>{
   res.render("perguntar")
 })
 
+
+app.get('/pergunta/:id',(req, res) =>{
+  let id = req.params.id
+  Pergunta.findOne({
+    where: {id: id}
+  }).then(pergunta =>{
+    if(pergunta != undefined){
+        Resposta.findAll(
+          {where: {perguntaID: pergunta.id},
+          order: [['id', 'desc']]
+        }).then(respostas => {
+          res.render('pergunta', {
+            pergunta: pergunta,
+            respostas: respostas
+          })
+        })
+    }else{
+      res.redirect('/')
+    }
+  })
+
+})
+
 app.post('/salvarpergunta', (req, res) => {
   let titulo = req.body.titulo
   let descricao = req.body.descricao
-  res.send(`Formulario recebido! <hr> titulo: ${titulo}<br> descricao: ${descricao}`)
+  Pergunta.create({
+    titulo: titulo,
+    descricao: descricao
+  }).then(() => {
+    res.redirect('/')
+  }).catch((err) => console.log(err))
 })
 
+app.post('/salvarResposta', (req, res) => {
+  let corpo = req.body.corpo
+  let perguntaId = req.body.perguntaId
+  Resposta.create({
+    corpo: corpo,
+    perguntaID: perguntaId
+  }).then(() => {
+    res.redirect('/pergunta/'+perguntaId)
+    alert('muito obrigado pela sua resposta')
+  }).catch((err) => console.log(err))
+})
+
+//listen
 app.listen(port,function(err){
   if(err){
     console.log(`ocorreu um erro:${err}`)
